@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080713">
+<title>20/10 • For You ♡</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Quicksand:wght@400;600;700&display=swap');
+
+:root {
+  --cyan: #00eaff;
+  --pink: #ffb6d5;
+  --bg: #080713;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+body {
+  font-family: 'Courier Prime', monospace;
+  color: white;
+}
+
+#universe {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 100%, #29162f 0%, transparent 48%),
+    radial-gradient(ellipse at 0% 100%, #071d2b 0%, transparent 38%),
+    #080713;
+  transition: background 2s;
+}
+
+#stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.aurora {
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  max-width: 700px;
+  max-height: 700px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: .12;
+  background: #00bfff;
+  top: 45%;
+  left: -20%;
+  animation: aurora 12s ease-in-out infinite alternate;
+}
+
+.aurora.two {
+  background: #ad37ff;
+  left: 65%;
+  top: -15%;
+  animation-delay: -5s;
+}
+
+@keyframes aurora {
+  to { transform: translate(15%, -10%) scale(1.2); }
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.04);
+  transition:
+    opacity 1.3s ease,
+    transform 1.8s ease,
+    visibility 1.3s;
+  z-index: 2;
+}
+
+.scene.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.message {
+  max-width: 760px;
+  margin: 0 auto 40px;
+  color: #fce8f6;
+  font-size: clamp(17px, 3.3vw, 29px);
+  line-height: 1.65;
+  letter-spacing: 2px;
+  text-shadow:
+    0 0 8px rgba(255,255,255,.8),
+    0 0 24px rgba(255,153,213,.55);
+  animation: textIn 1.5s both;
+}
+
+@keyframes textIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.neon-row {
+  display: flex;
+  justify-content: center;
+  gap: clamp(18px, 5vw, 42px);
+  align-items: center;
+}
+
+.neon {
+  width: clamp(48px, 10vw, 76px);
+  aspect-ratio: 1;
+  border: 3px solid #a5fbff;
+  border-radius: 13px;
+  background: #00d9ed;
+  box-shadow:
+    0 0 8px #00eaff,
+    0 0 20px #00eaff,
+    0 0 48px rgba(0,234,255,.8),
+    inset 0 0 14px rgba(255,255,255,.7);
+  cursor: pointer;
+  animation: pulse 2s ease-in-out infinite alternate;
+  transition: transform .25s, filter .25s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.neon:nth-child(2) { animation-delay: -1s; }
+
+.neon:active { transform: scale(.86); }
+
+@keyframes pulse {
+  from { filter: brightness(.85); }
+  to { filter: brightness(1.25); }
+}
+
+.hint {
+  margin-top: 22px;
+  color: #b9cbd8;
+  font: 12px 'Quicksand', sans-serif;
+  letter-spacing: 1px;
+  opacity: .75;
+}
+
+/* Bầu trời đầy sao */
+.constellation {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s;
+}
+
+.scene.active .constellation { opacity: .8; }
+
+.orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(65vw, 460px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(157,196,255,.13);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 35px rgba(80,120,255,.06);
+}
+
+.orbit::before, .orbit::after {
+  content: '';
+  position: absolute;
+  inset: 15%;
+  border: 1px solid rgba(157,196,255,.12);
+  border-radius: 50%;
+  transform: rotate(45deg) scaleX(1.8);
+}
+
+.orbit::after { transform: rotate(-45deg) scaleX(1.8); }
+
+.diamond {
+  position: absolute;
+  left: 50%;
+  bottom: 16%;
+  width: 25px;
+  height: 25px;
+  background: #d8f8ff;
+  transform: translateX(-50%) rotate(45deg);
+  box-shadow: 0 0 15px #7ccfff, 0 0 40px #6abfff;
+  animation: diamond 3s ease-in-out infinite;
+}
+
+@keyframes diamond {
+  50% { transform: translateX(-50%) rotate(225deg) scale(.75); }
+}
+
+/* Đồng cỏ và hoa */
+.meadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 25%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s;
+  background: linear-gradient(0deg, #173b2c 0%, #17231e 23%, transparent 100%);
+}
+
+.scene.active .meadow { opacity: 1; }
+
+.grass {
+  position: absolute;
+  bottom: -8px;
+  width: 2px;
+  height: var(--h);
+  left: var(--x);
+  background: linear-gradient(#a7e96d, #297e50);
+  transform-origin: bottom;
+  animation: sway var(--speed) ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+
+@keyframes sway {
+  to { transform: rotate(var(--angle)); }
+}
+
+.flower {
+  position: absolute;
+  left: var(--x);
+  bottom: var(--bottom);
+  font-size: var(--size);
+  filter: drop-shadow(0 0 5px rgba(255,173,215,.5));
+  animation: flowerSway 3s ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+
+@keyframes flowerSway {
+  to { transform: rotate(12deg) translateY(-4px); }
+}
+
+/* Minh hoạ anime tự dựng bằng SVG */
+.girl {
+  width: clamp(155px, 29vw, 250px);
+  height: auto;
+  max-height: 42vh;
+  overflow: visible;
+  filter: drop-shadow(0 0 18px rgba(255,140,190,.2));
+  animation: girlFloat 4s ease-in-out infinite;
+}
+
+@keyframes girlFloat {
+  50% { transform: translateY(-8px); }
+}
+
+.final-layout {
+  width: 100%;
+  max-width: 850px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 4vw, 55px);
+}
+
+.final-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.final-right {
+  flex: 0 1 40%;
+}
+
+.final-title {
+  font-size: clamp(16px, 3vw, 27px);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.record {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  margin: 25px auto 10px;
+  background:
+    repeating-radial-gradient(circle, #18131e 0 2px, #403249 3px 4px, #17121c 5px 7px);
+  border: 1px solid #a78ba8;
+  display: grid;
+  place-items: center;
+  animation: spin 7s linear infinite;
+  box-shadow: 0 0 20px rgba(255,160,220,.15);
+}
+
+.record span {
+  display: grid;
+  place-items: center;
+  background: #ffc3e4;
+  color: #7c315a;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 10px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.small-text {
+  font: 12px 'Quicksand', sans-serif;
+  color: #f2c9e3;
+  line-height: 1.8;
+}
+
+#next {
+  position: fixed;
+  z-index: 10;
+  right: 14px;
+  bottom: 12px;
+  padding: 8px 13px;
+  border: 1px solid rgba(0,234,255,.4);
+  border-radius: 30px;
+  color: #b8faff;
+  background: rgba(4,10,25,.65);
+  font: 12px 'Quicksand', sans-serif;
+  cursor: pointer;
+  opacity: .75;
+}
+
+#next:active { transform: scale(.95); }
+
+@media (max-width: 500px) {
+  .scene { padding: 18px; }
+  .message { margin-bottom: 32px; }
+  .final-layout { gap: 7px; }
+  .final-right { flex-basis: 42%; }
+  .girl { width: 100%; }
+  .final-title { letter-spacing: 0; }
+  .record { width: 49px; height: 49px; }
+  .small-text { font-size: 10px; }
+  .meadow { height: 19%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="universe">
+  <canvas id="stars"></canvas>
+  <div class="aurora"></div>
+  <div class="aurora two"></div>
+
+  <!-- Cảnh 1: Mở đầu -->
+  <section class="scene active" id="s0">
+    <p class="message">Hôm nay tớ nhận lệnh từ Dr D là để...</p>
+    <div class="neon-row">
+      <button class="neon" aria-label="Tiếp tục"></button>
+      <button class="neon" aria-label="Tiếp tục"></button>
+    </div>
+    <p class="hint">✦ một món quà nhỏ dành cho cậu ✦</p>
+  </section>
+
+  <!-- Cảnh 2: Ánh sáng vũ trụ -->
+  <section class="scene" id="s1">
+    <div class="constellation">
+      <div class="orbit"></div>
+      <div class="diamond"></div>
+    </div>
+    <p class="message">Ủi, cậu đẹp quá ✦</p>
+    <div class="neon-row">
+      <button class="neon" aria-label="Tiếp tục"></button>
+      <button class="neon" aria-label="Tiếp tục"></button>
+    </div>
+  </section>
+
+  <!-- Cảnh 3: Đồng cỏ -->
+  <section class="scene" id="s2">
+    <p class="message">À thì cũng sắp<br>20/10 rồi</p>
+    <div class="neon-row">
+      <button class="neon" aria-label="Tiếp tục"></button>
+      <button class="neon" aria-label="Tiếp tục"></button>
+    </div>
+    <div class="meadow" id="meadow"></div>
+  </section>
+
+  <!-- Cảnh 4: Vì thế -->
+  <section class="scene" id="s3">
+    <div class="constellation">
+      <div class="orbit"></div>
+      <div class="diamond"></div>
+    </div>
+    <p class="message">Nên là tớ muốn</p>
+    <div class="neon-row">
+      <button class="neon" aria-label="Tiếp tục"></button>
+      <button class="neon" aria-label="Tiếp tục"></button>
+    </div>
+  </section>
+
+  <!-- Cảnh 5: Lời chúc -->
+  <section class="scene" id="s4">
+    <div class="constellation">
+      <div class="orbit"></div>
+    </div>
+    <p class="message">Chúc cậu thật xinh đẹp ♡</p>
+    <div class="neon-row">
+      <button class="neon" aria-label="Tiếp tục"></button>
+      <button class="neon" aria-label="Tiếp tục"></button>
+    </div>
+    <div class="meadow"></div>
+  </section>
+
+  <!-- Cảnh 6: Kết thúc -->
+  <section class="scene" id="s5">
+    <div class="final-layout">
+      <div class="final-left">
+        <p class="message final-title">
+          Và chúc cậu luôn giữ<br>
+          nụ cười trên môi ♡
+        </p>
+        <div class="neon-row">
+          <button class="neon" aria-label="Xem lại"></button>
+          <button class="neon" aria-label="Xem lại"></button>
+        </div>
+        <div class="record"><span>♡</span></div>
+        <p class="small-text">
+          nhường ai hết tất cả<br>
+          nhưng đừng quên bản thân nhé
+        </p>
+      </div>
+
+      <div class="final-right">
+        <!-- Nhân vật anime SVG tự vẽ -->
+        <svg class="girl" viewBox="0 0 220 350"
+             xmlns="http://www.w3.org/2000/svg"
+             role="img" aria-label="Cô gái anime mặc váy hồng">
+          <defs>
+            <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#51415f"/>
+              <stop offset=".5" stop-color="#211a30"/>
+              <stop offset="1" stop-color="#100e20"/>
+            </linearGradient>
+            <linearGradient id="dress" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#f7b4d0"/>
+              <stop offset="1" stop-color="#a94c79"/>
+            </linearGradient>
+            <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#ffe4df"/>
+              <stop offset="1" stop-color="#eeb7c5"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Tóc phía sau -->
+          <path d="M65 70 Q20 80 45 170 L25 265 Q55 280 67 230
+                   L86 135 L152 130 L170 240 Q196 260 199 214
+                   L184 112 Q199 43 137 32 Z"
+                fill="url(#hair)" stroke="#83718f" stroke-width="2"/>
+
+          <!-- Cổ -->
+          <path d="M95 125 L93 155 L124 157 L125 123"
+                fill="url(#skin)"/>
+
+          <!-- Thân áo -->
+          <path d="M87 151 Q108 136 132 151 L157 208
+                   Q129 228 67 211 Z"
+                fill="#f5f0fa" stroke="#c4a5d2" stroke-width="1.5"/>
+
+          <!-- Váy -->
+          <path d="M91 163 Q62 171 58 205 L35 319
+                   Q104 346 175 317 L147 207 Q145 174 128 162
+                   L114 190 Z"
+                fill="url(#dress)" stroke="#d87ca5" stroke-width="2"/>
+
+          <path d="M57 278 Q105 302 160 278 L165 308
+                   Q106 330 41 307 Z"
+                fill="#f6bad4" opacity=".65"/>
+
+          <!-- Cánh tay -->
+          <path d="M81 171 Q57 190 70 220 L91 238
+                   Q100 242 101 233 L84 210 L100 188"
+                fill="url(#skin)" stroke="#d79eae" stroke-width="1.5"/>
+
+          <path d="M134 169 Q151 184 139 207 L121 231
+                   Q115 240 108 233 L122 204 L116 185"
+                fill="url(#skin)" stroke="#d79eae" stroke-width="1.5"/>
+
+          <!-- Khuôn mặt -->
+          <path d="M72 64 Q72 28 112 29 Q155 31 151 77
+                   Q148 120 119 136 Q96 131 82 103 Z"
+                fill="url(#skin)" stroke="#e4b1c2" stroke-width="1.5"/>
+
+          <!-- Tóc mái -->
+          <path d="M69 79 Q56 35 91 24 Q132 5 151 43
+                   Q162 58 151 86 L143 63 L131 43
+                   L119 67 L112 39 L99 67 L90 42 L80 81 Z"
+                fill="url(#hair)" stroke="#6b587d" stroke-width="1.5"/>
+
+          <!-- Mắt nhắm cười -->
+          <path d="M85 88 Q92 96 99 88"
+                fill="none" stroke="#53324b" stroke-width="3"
+                stroke-linecap="round"/>
+          <path d="M119 88 Q127 96 134 86"
+                fill="none" stroke="#53324b" stroke-width="3"
+                stroke-linecap="round"/>
+
+          <!-- Má hồng -->
+          <ellipse cx="84" cy="101" rx="10" ry="5"
+                   fill="#ff8cae" opacity=".65"/>
+          <ellipse cx="137" cy="101" rx="10" ry="5"
+                   fill="#ff8cae" opacity=".65"/>
+
+          <!-- Miệng -->
+          <path d="M102 106 Q110 114 118 105"
+                fill="#bb567d" stroke="#bb567d"
+                stroke-width="2" stroke-linecap="round"/>
+
+          <!-- Nơ -->
+          <path d="M111 150 L94 140 L98 160 Z"
+                fill="#f9d8e8" stroke="#b783aa"/>
+          <path d="M112 150 L130 139 L127 160 Z"
+                fill="#f9d8e8" stroke="#b783aa"/>
+          <circle cx="111" cy="150" r="4" fill="#c38aaa"/>
+
+          <!-- Điểm sáng -->
+          <path d="M48 68 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 Z"
+                fill="#ffe6fa"/>
+          <path d="M168 145 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2 Z"
+                fill="#ffe6fa"/>
+        </svg>
+      </div>
+    </div>
+    <div class="meadow"></div>
+  </section>
+</div>
+
+<button id="next" type="button">Tiếp tục →</button>
+
+<script>
+/* ===========================
+   1. BẦU TRỜI SAO CHUYỂN ĐỘNG
+=========================== */
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+let W, H, stars = [];
+
+function resize() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  stars = Array.from(
+    { length: Math.min(180, Math.floor(W * H / 4200)) },
+    () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.5 + .3,
+      a: Math.random(),
+      speed: Math.random() * .018 + .004
+    })
+  );
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, W, H);
+  for (const s of stars) {
+    s.a += s.speed;
+    const alpha = .25 + (Math.sin(s.a) + 1) * .35;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(220,235,255,${alpha})`;
+    ctx.shadowBlur = 7;
+    ctx.shadowColor = '#9ccfff';
+    ctx.fill();
+  }
+  ctx.shadowBlur = 0;
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener('resize', resize);
+resize();
+drawStars();
+
+/* ===========================
+   2. CỎ VÀ HOA
+=========================== */
+document.querySelectorAll('.meadow').forEach((meadow) => {
+  for (let i = 0; i < 115; i++) {
+    const grass = document.createElement('i');
+    grass.className = 'grass';
+    grass.style.setProperty('--x', Math.random() * 100 + '%');
+    grass.style.setProperty('--h', (20 + Math.random() * 85) + 'px');
+    grass.style.setProperty('--speed', (1.5 + Math.random() * 2.5) + 's');
+    grass.style.setProperty('--angle', (Math.random() * 18 - 9) + 'deg');
+    grass.style.setProperty('--delay', (-Math.random() * 3) + 's');
+    meadow.appendChild(grass);
+  }
+
+  const flowers = ['✿', '✾', '❀', '✽'];
+  for (let i = 0; i < 22; i++) {
+    const flower = document.createElement('span');
+    flower.className = 'flower';
+    flower.textContent = flowers[i % flowers.length];
+    flower.style.setProperty('--x', Math.random() * 96 + '%');
+    flower.style.setProperty('--bottom', (10 + Math.random() * 75) + 'px');
+    flower.style.setProperty('--size', (12 + Math.random() * 13) + 'px');
+    flower.style.setProperty('--delay', (-Math.random() * 4) + 's');
+    flower.style.color = ['#ffb4dc','#ffe3a1','#c2caff','#f5a9b5'][i % 4];
+    meadow.appendChild(flower);
+  }
+});
+
+/* ===========================
+   3. CHUYỂN CẢNH TỰ ĐỘNG
+=========================== */
+const scenes = [...document.querySelectorAll('.scene')];
+let current = 0;
+let timer;
+
+function showScene(index) {
+  current = (index + scenes.length) % scenes.length;
+
+  scenes.forEach((scene, i) => {
+    scene.classList.toggle('active', i === current);
+  });
+
+  const universe = document.getElementById('universe');
+
+  if (current === 2) {
+    universe.style.background =
+      'radial-gradient(ellipse at 50% 100%, #4b3424, transparent 65%), #080713';
+  } else if (current === 4 || current === 5) {
+    universe.style.background =
+      'radial-gradient(ellipse at 50% 100%, #3c1c37, transparent 65%), #080713';
+  } else {
+    universe.style.background =
+      'radial-gradient(ellipse at 50% 100%, #29162f, transparent 48%), #080713';
+  }
+}
+
+const durations = [5000, 5000, 6000, 5000, 6000, 30000];
+
+function scheduleNext() {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    if (current < scenes.length - 1) {
+      showScene(current + 1);
+      scheduleNext();
+    }
+  }, durations[current]);
+}
+
+function nextScene() {
+  if (current < scenes.length - 1) {
+    showScene(current + 1);
+    scheduleNext();
+  } else {
+    showScene(0);
+    scheduleNext();
+  }
+}
+
+document.getElementById('next').addEventListener('click', nextScene);
+
+document.querySelectorAll('.neon').forEach((button) => {
+  button.addEventListener('click', nextScene);
+});
+
+scheduleNext();
+</script>
+</body>
+</html>
