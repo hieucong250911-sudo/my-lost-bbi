@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 20/10 🌸</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+:root {
+  --pink: #ff8fbd;
+  --deep: #d95d91;
+  --light: #fff1f7;
+  --white: #fffafd;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #81546a;
+  background: linear-gradient(
+    145deg, #fff8fb, #ffe8f2, #fce4f0
+  );
+}
+
+#petals {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.petal {
+  position: absolute;
+  top: -30px;
+  animation: fall linear infinite;
+  opacity: .7;
+  user-select: none;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-5vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(500deg);
+  }
+}
+
+.sparkle {
+  position: fixed;
+  color: white;
+  pointer-events: none;
+  animation: twinkle 2s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: .2; transform: scale(.7); }
+  to { opacity: .9; transform: scale(1.2); }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 28px 20px 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page {
+  display: none;
+  text-align: center;
+  animation: appear .65s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.emoji {
+  font-size: 65px;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 5px 10px #f3b4d1);
+}
+
+.tag {
+  display: inline-block;
+  background: #ffffffb8;
+  border: 1px solid #ffd1e4;
+  border-radius: 30px;
+  padding: 8px 15px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  color: var(--deep);
+}
+
+h1 {
+  color: var(--deep);
+  font-size: clamp(29px, 8vw, 39px);
+  line-height: 1.35;
+  margin-bottom: 17px;
+}
+
+h2 {
+  color: var(--deep);
+  font-size: 25px;
+  margin-bottom: 18px;
+}
+
+p {
+  font-size: 15px;
+  line-height: 1.9;
+  margin: 10px 0;
+}
+
+.card {
+  background: #ffffffa8;
+  border: 1px solid #ffffff;
+  border-radius: 24px;
+  padding: 23px 19px;
+  box-shadow: 0 10px 35px #e9a7c32a;
+  margin: 20px 0;
+  backdrop-filter: blur(10px);
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn {
+  display: inline-block;
+  padding: 13px 24px;
+  border-radius: 30px;
+  background: linear-gradient(120deg, #ffafd0, #f47fb2);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 10px 5px 0;
+  box-shadow: 0 5px 15px #e98bb53b;
+  transition: transform .2s;
+}
+
+.btn:active {
+  transform: scale(.96);
+}
+
+.btn.secondary {
+  background: #fff;
+  color: var(--deep);
+  border: 1px solid #ffd0e3;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 25px 0 5px;
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  border-radius: 20px;
+  background: #efc8d9;
+  transition: .3s;
+}
+
+.dot.active {
+  width: 23px;
+  background: var(--pink);
+}
+
+.wish {
+  background: white;
+  border-radius: 17px;
+  padding: 13px;
+  margin: 10px 0;
+  font-size: 14px;
+  box-shadow: 0 3px 12px #edb4cc20;
+}
+
+.wish span {
+  margin-right: 8px;
+}
+
+#result {
+  min-height: 55px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--deep);
+  padding-top: 15px;
+}
+
+footer {
+  font-size: 11px;
+  color: #bc8aa1;
+  text-align: center;
+  margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+<div id="petals"></div>
+
+<main>
+
+  <!-- TRANG 1: LỜI CHÀO -->
+  <section class="page active" id="page1">
+    <div class="emoji">🌸</div>
+    <div class="tag">20.10 · VIETNAMESE WOMEN'S DAY</div>
+
+    <h1>Happy 20/10!</h1>
+
+    <p>
+      Hello Châu 👋<br>
+      Hôm nay có một chiếc web nho nhỏ<br>
+      dành cho ngày đặc biệt này nè!
+    </p>
+
+    <div class="card">
+      <div style="font-size:35px">🎀</div>
+      <p>
+        Không có gì to tát đâu,<br>
+        chỉ là một chút màu hồng<br>
+        và vài lời chúc dễ thương thôi.
+      </p>
+    </div>
+
+    <button class="btn" onclick="go(2)">
+      Mở quà thôi nào ✨ →
+    </button>
+  </section>
+
+  <!-- TRANG 2: LỜI CHÚC -->
+  <section class="page" id="page2">
+    <div class="emoji">💐</div>
+    <div class="tag">A LITTLE WISH FOR YOU</div>
+
+    <h2>Chúc Châu 20/10 vui vẻ!</h2>
+
+    <div class="card">
+      <div class="wish">
+        <span>🌷</span> Luôn vui vẻ và cười thật nhiều.
+      </div>
+      <div class="wish">
+        <span>🍀</span> Học hành thuận lợi, gặp nhiều may mắn.
+      </div>
+      <div class="wish">
+        <span>🍰</span> Có thật nhiều đồ ngon để ăn.
+      </div>
+      <div class="wish">
+        <span>☁️</span> Mỗi ngày đều có chuyện vui để kể.
+      </div>
+    </div>
+
+    <p>
+      Mong hôm nay của cậu sẽ có thêm<br>
+      một chút niềm vui nho nhỏ nha! 💗
+    </p>
+
+    <button class="btn secondary" onclick="go(1)">← Quay lại</button>
+    <button class="btn" onclick="go(3)">Tiếp theo →</button>
+  </section>
+
+  <!-- TRANG 3: TƯƠNG TÁC VUI VẺ -->
+  <section class="page" id="page3">
+    <div class="emoji">🧸</div>
+    <div class="tag">LITTLE HAPPY CORNER</div>
+
+    <h2>Chọn một chiếc mood!</h2>
+
+    <p>
+      Nếu hôm nay là một chiếc sticker,<br>
+      cậu sẽ chọn cái nào? 👀
+    </p>
+
+    <div class="card">
+      <button class="btn secondary" onclick="mood(1)">
+        🥰 Dễ thương
+      </button>
+
+      <button class="btn secondary" onclick="mood(2)">
+        😎 Ngầu lòi
+      </button>
+
+      <button class="btn secondary" onclick="mood(3)">
+        🐷 Ham ăn
+      </button>
+
+      <button class="btn secondary" onclick="mood(4)">
+        💤 Muốn ngủ
+      </button>
+
+      <div id="result">
+        Chọn một cái đi nào 👆
+      </div>
+    </div>
+
+    <p style="font-size:12px">
+      Không có đáp án sai đâu =))
+    </p>
+
+    <button class="btn secondary" onclick="go(2)">← Quay lại</button>
+    <button class="btn" onclick="go(4)">Trang cuối →</button>
+  </section>
+
+  <!-- TRANG 4: KẾT THÚC -->
+  <section class="page" id="page4">
+    <div class="emoji">🎉</div>
+    <div class="tag">THAT'S ALL!</div>
+
+    <h1>Happy 20/10<br>nhaa Châu! 💗</h1>
+
+    <div class="card">
+      <p>
+        Chúc cậu có một ngày thật vui,<br>
+        nhận được nhiều quà và thật nhiều<br>
+        lời chúc dễ thương nhé! 🌷
+      </p>
+
+      <div style="font-size:38px; margin:18px">
+        🌸 🎀 🌸
+      </div>
+
+      <p style="font-size:13px">
+        Hết quà rồi đó =))<br>
+        Chúc cậu một ngày thật tuyệt!
+      </p>
+    </div>
+
+    <button class="btn" onclick="celebrate()">
+      Bấm phát nhận may mắn 🍀
+    </button>
+
+    <p id="luck" style="font-weight:700;color:#d95d91"></p>
+
+    <button class="btn secondary" onclick="go(1)">
+      Xem lại từ đầu ↺
+    </button>
+  </section>
+
+  <div class="dots" id="dots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <footer>Made with 💗 · Happy Women's Day</footer>
+</main>
+
+<script>
+const petals = document.getElementById('petals');
+
+for (let i = 0; i < 22; i++) {
+  const petal = document.createElement('div');
+  petal.className = 'petal';
+  petal.textContent = ['🌸', '🌷', '✿', '✨'][Math.floor(Math.random() * 4)];
+  petal.style.left = Math.random() * 100 + '%';
+  petal.style.animationDuration = (7 + Math.random() * 9) + 's';
+  petal.style.animationDelay = (-Math.random() * 15) + 's';
+  petal.style.fontSize = (12 + Math.random() * 13) + 'px';
+  petals.appendChild(petal);
+}
+
+for (let i = 0; i < 12; i++) {
+  const star = document.createElement('div');
+  star.className = 'sparkle';
+  star.textContent = '✦';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+  star.style.animationDelay = Math.random() * 2 + 's';
+  star.style.fontSize = (8 + Math.random() * 10) + 'px';
+  document.body.appendChild(star);
+}
+
+function go(n) {
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+  });
+
+  document.getElementById('page' + n).classList.add('active');
+
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === n - 1);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function mood(n) {
+  const messages = {
+    1: 'Đáng yêu là đúng bài rồi đó 🥰🌸',
+    2: 'Ngầu quá, không ai đỡ nổi 😎✨',
+    3: 'Ưu tiên đồ ăn là lựa chọn sáng suốt 🍰🐷',
+    4: 'Ngủ ngon cũng là một loại tài năng 💤☁️'
+  };
+
+  document.getElementById('result').textContent = messages[n];
+}
+
+function celebrate() {
+  document.getElementById('luck').textContent =
+    '🍀 Chúc Châu hôm nay siêu may mắn! 🍀';
+
+  for (let i = 0; i < 15; i++) {
+    const flower = document.createElement('div');
+    flower.textContent = ['💗', '🌸', '✨', '🎀'][
+      Math.floor(Math.random() * 4)
+    ];
+
+    flower.style.position = 'fixed';
+    flower.style.left = Math.random() * 100 + 'vw';
+    flower.style.top = '-30px';
+    flower.style.fontSize = '22px';
+    flower.style.zIndex = '10';
+    flower.style.pointerEvents = 'none';
+    flower.style.transition = 'transform 2s linear, opacity 2s';
+
+    document.body.appendChild(flower);
+
+    requestAnimationFrame(() => {
+      flower.style.transform =
+        `translateY(${window.innerHeight + 60}px) rotate(360deg)`;
+      flower.style.opacity = '0';
+    });
+
+    setTimeout(() => flower.remove(), 2200);
+  }
+}
+</script>
+</body>
+</html>
+# my-lost-bbi
